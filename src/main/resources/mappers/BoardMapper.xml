@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    1번 줄에 빈(empty) 줄이면 에러가 난다.
+    xml은 External Markup Language 줄임말.
+    Markup Language가 표시하는 언어. 데이터를 표현하는 언어.
+    여러 플랫폼에서 사용할 수 있다. JSON과 비슷하다.
+
+    html은 Hyper Text Markup Language 둘 다 마크업 언어이다.
+
+    태그  : <태그명></태그명> or <태그명 /> 태그를 사용할 수 있다. 태그 이름과 속성값은 어떻게 처리할지 약속되어 있다.
+    그 약속은 플랫폼마다 모두 다르다. 참고로 안드로이드에서는 화면을 xml파일로 구현한다.
+    <mapper namespace="연결한 interface full path">
+
+    <insert id="연결할 메소드명">
+    </insert>
+-->
+
+<mapper namespace="com.green.board.BoardMapper">
+    <insert id="insBoard">
+        INSERT INTO board
+            SET title = #{title}
+              , contents = #{contents}
+              , writer = #{writer}
+    </insert>
+
+    <select id="selBoardList">
+        SELECT board_id AS boardID, title, writer, created_at AS createdAt
+        From board
+        ORDER BY board_id DESC
+    </select>
+
+    <select id="selBoardOne">
+        SELECT board_id AS boardID, title, contents, writer, created_at AS createdAt
+        From board
+        WHERE board_id = #{board_id}
+    </select>
+</mapper>
