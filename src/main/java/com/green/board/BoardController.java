@@ -14,7 +14,7 @@ import java.util.List;
 
     @ = Annotation(애노테이션)
     @Controller - 응답을 html ( 데이터로 만든 화면을 return )
-    @RestController - 응답을 json ( 데이터만 응답 )
+    @RestController - 응답을 json으로 한다. ( 데이터만 응답 )
 
     @RequestMapping - URL과 클래스 아래에 있는 Method 맵핑(연결)
                       class에 RequestMapping 전체 메소드 주소가 맵핑
@@ -103,14 +103,17 @@ import java.util.List;
 
 /*
     final 붙은 멤버필드 DI(Dependency Injection :의존성,참조 주입)를 받을 수 있게 생성자를 만든다.
+    외부에서 객체화가 되든 안되든 주소값을 injection해주는대로 쓰는 것.
+    DI를 받으려면 빈등록이 되어있어야한다. (약속!)
     애노테이션 생략하면 오버로딩된 생성자를 직접 만들어주어야 한다.
 
  */
 @RequiredArgsConstructor
-@RestController // 빈 등록 + 컨트롤러 임명, 빈등록은 스프링 컨테이너가 직접 객체화를 한다.
+@RestController // 빈 등록 + 컨트롤러 임명(요청과 응답을 담당하게 되고), 빈등록은 스프링 컨테이너가 직접 객체화를 한다.
 @RequestMapping("/board")
 public class BoardController {
     private final BoardService service; //final을 붙이면 생성자를 반드시 만들어줘야한다.
+                                        //final과 @RequiredArgsConstructor은 한 쌍
 
     /*
     @RequiredArgsConstructor 애노테이션을 붙이면 아래 생성자가 자동으로 만들어진다.
@@ -130,12 +133,12 @@ public class BoardController {
 
     // (객체 >> JSON) 바꾸는 직렬화 작업 자동으로 해준다.
     // localhost:8080/board
-    @GetMapping
+    @GetMapping // 글이 들어오면 여기가 담당자
     public List<BoardSelRes> selBoardList() {
         return service.selResList();
     }
 
-    @GetMapping("{boardId}")
+    @GetMapping("{boardId}") //숫자가 들어오면 여기가 담당자
     public BoardSelOneRes selBoardOne(@PathVariable int boardId) {
         return service.selBoardOne(boardId);
     }

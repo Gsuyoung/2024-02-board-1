@@ -15,13 +15,14 @@ xml + interface 파일을 이용해서 implements한 class파일을 만들 것�
 여기서 만든 주소값을 BoardService객체화 할 때 DI해준다.
 
 insert, update, delete의 리턴타입은 int하면 됨.
+
  */
 
 
 @Mapper
 public interface BoardMapper {
     int insBoard(BoardInsReq p);
-    List<BoardSelRes> selBoardList();
+    List<BoardSelRes> selBoardList(); //xml파일에있는 <같은 이름>을 써주어야한다. selBoardList, selBoardOne
     BoardSelOneRes selBoardOne(int p);
 
 }
